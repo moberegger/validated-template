@@ -9,6 +9,9 @@ This package had a couple of inspirations.
 - validated-method
 - themeteorchef:controller
 
+## Install
+`meteor add moberegger:validated-template`
+
 ## Features
 - Simplified syntax for defining template logic.
 - Define a validation function that will autorun.
