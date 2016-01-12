@@ -14,7 +14,7 @@ Create Blaze templates using MDG's best practices without any of the boilerplate
 Not much! Haha. Really! It's only like 30 lines of code. You make your events, helpers, and callbacks like you normally do and the package will just take care of some of the boilerplate for you.
 
 ##Features
-- Generally, a simplified syntax for defining template logic.
+- Generally, a simplified syntax for defining template logic in a very lightweight package.
 - Provide a `validateProps` function that will automatically be placed in an autorun for you. This will validate the data context provided to the template. Right now, this isn't dependant on anything, so you can use `check`, `simple-schema`, `astronomy` or roll your own.
 - Provide default properties via the `getDefaultProps` function. The function will set the default properties to the data context before validating it. Must return an object. Only runs the first time when created. This is intentionally named after the React API.
 - Automatically create and attach a `state` object to the template. The default state can be set via the `getInitialState` function. Must return an object. Only runs the first time when created. This is intentionally named after the React API.
