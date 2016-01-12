@@ -1,25 +1,26 @@
 ValidatedTemplate = function(template, actions) {
   let that = this;
-  
+
   // Get validation method
-  this._validateProps = _.get(actions, 'validateProps');
+  this._validateProps = actions.validateProps;
   
   // Get defaultProps
-  this._defaultProps = _.get(actions, 'getDefaultProps', {});
+  this._defaultProps = actions.getDefaultProps || {};
 
   // Setup initial state
-  this._getInitialState = _.get(actions, 'getInitialState');
+  this._getInitialState = actions.getInitialState;
   // TODO: Properly process this from object key-value to name-value
   this._initialState = this._getInitialState ? this._getInitialState() : {};
   
   // On Created
-  this._onCreated = function() {
+  this._onCreated = actions.onCreated;
+  this._extendedOnCreated = function() {
     // Extend the data with defaultProps
-    this.data = _.extend(this.data, that._defaultProps);
+    this.data = _.defaults(this.data, that._defaultProps);
     
     // Call validation function
-    if (this._validateProps) {
-      this.autoRun(() => {
+    if (that._validateProps) {
+      this.autorun(() => {        
         // TODO: See if this can be limited to dev mode
         that._validateProps.call(this);  
       });
@@ -27,15 +28,17 @@ ValidatedTemplate = function(template, actions) {
         
     // Create state reactive dictionary for state
     this.state = new ReactiveDict(that._initialState);
+    
+    if (that._onCreated) that._onCreated.call(this);
   } 
   // Set onCreated function
-  Template[template].onCreated(this._onCreated);
+  Template[template].onCreated(this._extendedOnCreated);
   
   // Set onRendered
-  Template[template].onRendered(actions.onRendered);
+  if (actions.onRendered) Template[template].onRendered(actions.onRendered);
   
   // Get specified helpers
-  this._helpers = _.get(actions, 'helpers', {});
+  this._helpers = actions.helpers || {};
   // Add template instance helper
   this._helpers.t = function() {
     return Template.instance();
@@ -49,8 +52,8 @@ ValidatedTemplate = function(template, actions) {
   Template[template].helpers(this._helpers);
   
   // Set events
-  Template[template].events(actions.events);
+  if (actions.events) Template[template].events(actions.events);
   
   // Set onDestroyed
-  Template[template].onDestroyed(actions.onDestroyed);
+  if (actions.onDestroyed) Template[template].onDestroyed(actions.onDestroyed);
 };
