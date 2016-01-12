@@ -13,7 +13,8 @@ ValidatedTemplate = (template, actions) => {
     }
         
     // Create state reactive dictionary based on initialState
-    this.state = new ReactiveDict(actions.getInitialState ? actions.getInitialState() : {});    
+    this.state = new ReactiveDict();
+    this.state.setDefault(actions.getInitialState ? actions.getInitialState() : {});
     
     if (actions.onCreated) actions.onCreated.call(this);
     if (actions.componentWillMount) actions.componentWillMount.call(this);
