@@ -1,6 +1,6 @@
 Package.describe({
   name: 'moberegger:validated-template',
-  version: '0.0.1',
+  version: '0.0.3',
   summary: "Create Blaze templates using MDG's best practices without any of the boilerplate!",
   git: 'https://github.com/MichaelOber/validated-template',
   documentation: 'README.md'
