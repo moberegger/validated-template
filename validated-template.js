@@ -1,4 +1,4 @@
-ValidatedTemplate = function(template, actions) { 
+ValidatedTemplate = (template, actions) => { 
   // Set onCreated function
   Template[template].onCreated(function() {
     // Extend the data with defaultProps
