@@ -2,7 +2,7 @@ ValidatedTemplate = function(template, actions) {
   // Set onCreated function
   Template[template].onCreated(function() {
     // Extend the data with defaultProps
-    this.data = _.defaults(this.data, actions.getDefaultProps || {});
+    this.data = _.defaults(this.data, actions.getDefaultProps ? actions.getDefaultProps() : {});
     
     // Call validation function
     if (actions.validateProps) {
